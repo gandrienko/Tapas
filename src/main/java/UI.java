@@ -72,15 +72,6 @@ public class UI implements ActionListener {
     }
     if (ae.getSource().equals(bRunSc0)) {
       String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
-             fnDecisions=path+"\\0_delays\\scenario_20190801_exp0_decisions",
-             fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans";
-      dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
-      if (dk!=null && !dk.getSectors().isEmpty())
-        new CreateUI(dk);
-      return;
-    }
-    if (ae.getSource().equals(bRunSc0)) {
-      String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
               fnDecisions=path+"\\0_delays\\scenario_20190801_exp0_decisions",
               fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans";
       dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
