@@ -11,6 +11,8 @@ public class Main {
     } catch (Exception e) {
       System.out.println("exception="+e);
     }
-    new UI();
+    UI ui=new UI();
+    if (args.length==1)
+      ui.setPathToData(args[0]);
   }
 }
