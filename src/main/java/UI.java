@@ -101,9 +101,4 @@ public class UI implements ActionListener {
     }
   }
 
-  protected void runTapasSolutionExplorer() {
-    TapasSolutionExplorer.Data.DataKeeper dk=null; //new TapasSolutionExplorer.Data.DataKeeper()
-    if (dk!=null && !dk.getSectors().isEmpty())
-      new CreateUI(dk);
-  }
 }
