@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class UI implements ActionListener {
 
@@ -74,6 +75,8 @@ public class UI implements ActionListener {
       String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
               fnDecisions=path+"\\0_delays\\scenario_20190801_exp0_decisions",
               fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans";
+      if (!checkFileExists(fnCapacities) || !checkFileExists(fnDecisions) || !checkFileExists(fnFlightPlans))
+        return;
       dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
       if (dk!=null && !dk.getSectors().isEmpty())
         new CreateUI(dk,false);
@@ -83,6 +86,8 @@ public class UI implements ActionListener {
       String fnCapacities=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_capacities",
               fnDecisions=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_exp2_decisions",
               fnFlightPlans=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_exp2_baseline_flight_plans";
+      if (!checkFileExists(fnCapacities) || !checkFileExists(fnDecisions) || !checkFileExists(fnFlightPlans))
+        return;
       dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
       if (dk!=null && !dk.getSectors().isEmpty())
         new CreateUI(dk,false);
@@ -91,9 +96,17 @@ public class UI implements ActionListener {
     if (ae.getSource().equals(bRunCmpSc)) {
       String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
              fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans",
-             fnSolutions[]={"solution0_delays="+path+"\\0_delays\\scenario_20190801_exp0_solution",
-                            "solution1_levelCapping="+path+"\\1_only_capping\\scenario_20190801_only_capping_exp1_solution",
-                            "solution2_cappingDelays="+path+"\\2_capping_delays\\scenario_20190801_capping_delays_exp2_solution"};
+             fnSolutionsShort[]={path+"\\0_delays\\scenario_20190801_exp0_solution",
+                                 path+"\\1_only_capping\\scenario_20190801_only_capping_exp1_solution",
+                                 path+"\\2_capping_delays\\scenario_20190801_capping_delays_exp2_solution"},
+             fnSolutions[]={"solution0_delays="+fnSolutionsShort[0],
+                            "solution1_levelCapping="+fnSolutionsShort[1],
+                            "solution2_cappingDelays="+fnSolutionsShort[2]};
+      if (!checkFileExists(fnCapacities) || !checkFileExists(fnFlightPlans))
+        return;
+      for (int i=0; i<fnSolutions.length; i++)
+        if (!checkFileExists(fnSolutionsShort[i]))
+          return;
       dk=new DataKeeper(fnCapacities,fnFlightPlans,fnSolutions);
       if (dk!=null && !dk.getSectors().isEmpty())
         new CreateUI(dk,false);
@@ -101,4 +114,10 @@ public class UI implements ActionListener {
     }
   }
 
+  public boolean checkFileExists (String fname) {
+    File f=new File(fname+".csv");
+    boolean b=f.exists();
+    System.out.println(" checking file "+fname+((b)?" ... ok":" ... NOT FOUND!"));
+    return b;
+  }
 }
