@@ -116,7 +116,7 @@ public class UI implements ActionListener {
 
   public boolean checkFileExists (String fname) {
     File f=new File(fname+".csv");
-    boolean b=f.exists();
+    boolean b=f.isFile();
     System.out.println(" checking file "+fname+((b)?" ... ok":" ... NOT FOUND!"));
     return b;
   }
