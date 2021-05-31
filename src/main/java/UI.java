@@ -9,7 +9,8 @@ import java.io.File;
 
 public class UI implements ActionListener {
 
-  String path="C:\\CommonGISprojects\\tracks-avia\\TAPAS\\ATFCM-20210331";
+  String path="C:\\CommonGISprojects\\tracks-avia\\TAPAS\\ATFCM-20210331",
+         date="20190801";
   TapasSolutionExplorer.Data.DataKeeper dk=null;
 
   JLabel lblPath=null;
@@ -59,6 +60,8 @@ public class UI implements ActionListener {
   public void setPathToData (String path) {
     this.path=path;
     lblPath.setText(path);
+    date=path.substring(path.lastIndexOf("\\")+1);
+    System.out.println("* date="+path.substring(path.lastIndexOf("\\")+1));
   }
 
   public void actionPerformed (ActionEvent ae) {
@@ -72,9 +75,9 @@ public class UI implements ActionListener {
       return;
     }
     if (ae.getSource().equals(bRunSc0)) {
-      String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
-              fnDecisions=path+"\\0_delays\\scenario_20190801_exp0_decisions",
-              fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans";
+      String fnCapacities=path+"\\0_delays\\scenario_"+date+"_capacities",
+              fnDecisions=path+"\\0_delays\\scenario_"+date+"_exp0_decisions",
+              fnFlightPlans=path+"\\0_delays\\scenario_"+date+"_exp0_baseline_flight_plans";
       if (!checkFileExists(fnCapacities) || !checkFileExists(fnDecisions) || !checkFileExists(fnFlightPlans))
         return;
       dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
@@ -83,9 +86,9 @@ public class UI implements ActionListener {
       return;
     }
     if (ae.getSource().equals(bRunSc2)) {
-      String fnCapacities=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_capacities",
-              fnDecisions=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_exp2_decisions",
-              fnFlightPlans=path+"\\2_capping_delays\\\\scenario_20190801_capping_delays_exp2_baseline_flight_plans";
+      String fnCapacities=path+"\\2_capping_delays\\\\scenario_"+date+"_capping_delays_capacities",
+              fnDecisions=path+"\\2_capping_delays\\\\scenario_"+date+"_capping_delays_exp2_decisions",
+              fnFlightPlans=path+"\\2_capping_delays\\\\scenario_"+date+"_capping_delays_exp2_baseline_flight_plans";
       if (!checkFileExists(fnCapacities) || !checkFileExists(fnDecisions) || !checkFileExists(fnFlightPlans))
         return;
       dk=new DataKeeper(fnCapacities,fnDecisions,fnFlightPlans);
@@ -94,11 +97,11 @@ public class UI implements ActionListener {
       return;
     }
     if (ae.getSource().equals(bRunCmpSc)) {
-      String fnCapacities=path+"\\0_delays\\scenario_20190801_capacities",
-             fnFlightPlans=path+"\\0_delays\\scenario_20190801_exp0_baseline_flight_plans",
-             fnSolutionsShort[]={path+"\\0_delays\\scenario_20190801_exp0_solution",
-                                 path+"\\1_only_capping\\scenario_20190801_only_capping_exp1_solution",
-                                 path+"\\2_capping_delays\\scenario_20190801_capping_delays_exp2_solution"},
+      String fnCapacities=path+"\\0_delays\\scenario_"+date+"_capacities",
+             fnFlightPlans=path+"\\0_delays\\scenario_"+date+"_exp0_baseline_flight_plans",
+             fnSolutionsShort[]={path+"\\0_delays\\scenario_"+date+"_exp0_solution",
+                                 path+"\\1_only_capping\\scenario_"+date+"_only_capping_exp1_solution",
+                                 path+"\\2_capping_delays\\scenario_"+date+"_capping_delays_exp2_solution"},
              fnSolutions[]={"solution0_delays="+fnSolutionsShort[0],
                             "solution1_levelCapping="+fnSolutionsShort[1],
                             "solution2_cappingDelays="+fnSolutionsShort[2]};
